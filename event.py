@@ -1,6 +1,5 @@
-class Event:
+class EventsList:
 	def __init__():
-		self.name
-		self.location
-		self.date
+		self.events: dict
+		
 		
