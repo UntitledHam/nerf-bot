@@ -18,9 +18,10 @@ def make_request():
 
 def main():
 	#make_request()
-	test_json = {"name": "Open Mic Night!", "date": "2024-4-3-19:30", "location": "The Pub @ IC Square"}
+	test_json = {"name": "Test Nerf Event!", "date": "2024-02-15-19:30", "location": "The Pub @ IC Square"}
 	print(test_json)
 	test_event = ClubEvent(test_json)
 
 	print(test_event.date_object.strftime("%Y-%m-%d-%H:%M"))
+	print(test_event.days_from_today())
 main()	

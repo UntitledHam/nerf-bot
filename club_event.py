@@ -9,4 +9,7 @@ class ClubEvent:
 		self.location = event_json["location"]
 		self.three_day_alert = True
 		self.day_of_alert = True
+
+	def days_from_today(self):
+		return self.date_object - date.today()
 			
