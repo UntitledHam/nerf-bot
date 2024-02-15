@@ -1,8 +1,10 @@
+from club_event import ClubEvent
 class EventsList:
 	def __init__(events_json: dict):
-		events_list = {}
+		events = []
 		for date, event in events_list.items():
-			print()
+			events_list
+			
 		
 
 	def compare_new_event(new_date):

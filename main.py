@@ -22,5 +22,5 @@ def main():
 	print(test_json)
 	test_event = ClubEvent(test_json)
 
-	print(test_event.date_object.date)
+	print(test_event.date_object.strftime("%Y-%m-%d-%H:%M"))
 main()	
