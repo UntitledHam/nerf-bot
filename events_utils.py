@@ -8,10 +8,6 @@ def convert_text_to_list(text: str):
 		text = text[index+1:]
 	return list_text
 
-def print_events(events):
-	for date, event in events.items():
-		print(f"""Name: {event["name"]}\nDate: {event["date"]}\nLocation: {event["location"]}\n\n""")
-
 
 def generate_dictonary(data):
 	data = convert_text_to_list(data)
@@ -28,4 +24,4 @@ def generate_dictonary(data):
 		date = convert_date(filtered_data[i+1])
 		events[date] = {"name": filtered_data[i], "date": date, "location": filtered_data[i+2]}
 
-	return events
+	return events		

@@ -1,6 +1,5 @@
-import sys
-import os
 import time
+import load_config
 
 from requests_html import HTMLSession
 from events_utils import *
@@ -28,16 +27,13 @@ def start_request_loop():
 		except ValueError:
 			print("Error Making Request.")
 
-		print("Sleeping for 30 Seconds.")
+		all_events.print_events()
+		print("Sleeping for 30 Seconds.\n\n")
 		time.sleep(30)
 
-		
-
-def shutdown():
-	print("Make this later lol.")
-			
 
 def main():
+	load_config.init()
 	start_request_loop()
 
 if __name__ == '__main__':

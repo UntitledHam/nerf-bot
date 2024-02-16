@@ -1,5 +1,6 @@
 from datetime import date, datetime
 
+
 def month_to_num(month: str):
 	month = month.lower()
 	match month:
@@ -28,6 +29,7 @@ def month_to_num(month: str):
 		case "december":
 			return 12
 
+
 def convert_to_24_hour_time(date: str):
 	split_date = date.split(":")
 	if "PM" in date:
@@ -39,8 +41,8 @@ def convert_to_24_hour_time(date: str):
 	else:
 		raise ValueError("Invalid date input.")
 
+
 def convert_date(text: str):
-	
 	split_text = text.split(" ")
 	split_text = split_text[1:-1]
 	del split_text[2]
