@@ -41,6 +41,19 @@ def convert_to_24_hour_time(date: str):
 	else:
 		raise ValueError("Invalid date input.")
 
+def convert_to_12_hour_time(date: str):
+	split_date = date.split(":")
+	hours = int(split_date[0])
+	if hours > 12:
+		return f"{hours - 12}:{split_date[1]} PM"
+	elif hours == 0: 
+		return f"12:{split_date[1]} AM"
+	elif hours > 0 and hours <= 12:
+		return f"{date} AM"
+	else: 
+		raise ValueError("Invalid date input.")
+	
+
 
 def convert_date(text: str):
 	split_text = text.split(" ")
