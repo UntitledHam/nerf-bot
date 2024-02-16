@@ -11,5 +11,5 @@ class ClubEvent:
 		self.day_of_alert = True
 
 	def days_from_today(self):
-		return self.date_object - date.today()
+		return (self.date_object - datetime.today()).days
 			
