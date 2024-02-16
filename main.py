@@ -1,27 +1,44 @@
+import sys
+import os
+import time
+
 from requests_html import HTMLSession
 from events_utils import *
 from club_event import ClubEvent
+from events_list import EventsList
 
 
 def make_request():
 	session = HTMLSession()
-	#page = session.get("https://ithaca.campuslabs.com/engage/organization/ithaca-college-nerf-club/events?showpastevents=true")
 	page = session.get("https://ithaca.campuslabs.com/engage/organization/open-mic-night/events")
 	page.html.render()
 	all_events_html = page.html.find("#org-event-discovery-list", first=True)
 	if all_events_html == None:
 		raise ValueError("No events found.")
 	events = generate_dictonary(all_events_html.text)
+	
+	return events
 
-	print_events(events)
+def start_request_loop():
+	all_events = EventsList()
+	while True:
+		try:
+			events_json = make_request()
+			all_events.refresh_list(events_json)
+		except ValueError:
+			print("Error Making Request.")
+
+		print("Sleeping for 30 Seconds.")
+		time.sleep(30)
+
+		
+
+def shutdown():
+	print("Make this later lol.")
 			
 
 def main():
-	#make_request()
-	test_json = {"name": "Test Nerf Event!", "date": "2024-02-15-19:30", "location": "The Pub @ IC Square"}
-	print(test_json)
-	test_event = ClubEvent(test_json)
+	start_request_loop()
 
-	print(test_event.date_object.strftime("%Y-%m-%d-%H:%M"))
-	print(test_event.days_from_today())
-main()	
+if __name__ == '__main__':
+   main()
