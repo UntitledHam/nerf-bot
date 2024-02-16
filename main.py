@@ -5,6 +5,7 @@ from requests_html import HTMLSession
 from events_utils import *
 from club_event import ClubEvent
 from events_list import EventsList
+from discord import send_webhook
 
 
 def make_request():
@@ -34,7 +35,11 @@ def start_request_loop():
 
 def main():
 	load_config.init()
-	start_request_loop()
+	#start_request_loop()
+	test_message = load_config.config["today_message"]
+	test_message["embeds"][0]["title"] = test_message["embeds"][0]["title"].format("Test")
+	test_message["embeds"][0]["description"] = test_message["embeds"][0]["description"].format("Nerf Event", "Your Mom's House", "14:30")
+	send_webhook(test_message)
 
 if __name__ == '__main__':
    main()
