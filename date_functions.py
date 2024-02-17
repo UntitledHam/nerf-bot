@@ -31,10 +31,8 @@ def month_to_num(month: str):
 
 
 def convert_to_24_hour(time_str):
-	print(time_str)
     # Split the time string into hours, minutes, and AM/PM indicator
 	time_str = time_str[:-2] + " " + time_str[-2:]
-	print(time_str)
 	hours, minutes = time_str[:-2].split(':')
 	period = time_str[-2:]
     

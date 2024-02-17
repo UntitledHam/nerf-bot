@@ -36,7 +36,7 @@ class EventsList:
 			elif event.days_from_today() == 0 and not event.has_been_sent["today"]:
 				send_webhook(event, "today")
 			else:
-				print("Webhook already been sent, skipping...")
+				print(f"Webhook: {event.name} already been sent, skipping...")
 
 
 

@@ -17,6 +17,8 @@ def make_request():
 	all_events_html = page.html.find("#org-event-discovery-list", first=True)
 	if all_events_html == None:
 		raise ValueError("No events found.")
+		print("No events found.")
+	print(all_events_html.text)
 	events = generate_dictonary(all_events_html.text)
 	
 	return events
@@ -30,7 +32,7 @@ def start_request_loop():
 			all_events.print_events()
 			all_events.send_webhooks()
 		
-		except Exception as e:
+		except Exception:
 			traceback.print_exc()
 			print("No events found.")
 		
@@ -44,7 +46,4 @@ def main():
 	start_request_loop()
 
 if __name__ == '__main__':
-	try:
-		main()
-	except KeyboardInterrupt:
-		exit(0)
+	main()

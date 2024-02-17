@@ -21,8 +21,9 @@ def generate_dictonary(data):
 	# 1: Date
 	# 2 Location
 	events = {}
-	for i in range(0, (len(filtered_data))-3, 3):
+	for i in range(0, (len(filtered_data)), 3):
 		date = convert_date(filtered_data[i+1])
 		events[date] = {"name": filtered_data[i], "date": date, "location": filtered_data[i+2]}
+	print(events)
 
 	return events		
