@@ -7,7 +7,7 @@ from club_event import ClubEvent
 def send_webhook(event: ClubEvent, type):
 	content = load_config.config["webhook_format"]
 	content = format_embed(content, event, type)
-	url = load_config.config["webhook_url"]
+	urls = load_config.config["webhook_urls"]
 
 	match type:
 		case "discovered": 
@@ -17,14 +17,15 @@ def send_webhook(event: ClubEvent, type):
 		case "today": 
 			event.has_been_sent["today"] = True
 
-	result = requests.post(url, json=content)
+	for url in urls:
+		result = requests.post(url, json=content)
 
-	try:
-		result.raise_for_status()
-	except requests.exceptions.HTTPError as err:
-		print(err)
-	else:
-		print(f"Webhook delivered successfully, code {result.status_code}.")
+		try:
+			result.raise_for_status()
+		except requests.exceptions.HTTPError as err:
+			print(err)
+		else:
+			print(f"Webhook delivered successfully, code {result.status_code}.")
 
 	load_config.init()
 
@@ -37,11 +38,11 @@ def format_embed(content: dict, club_event, type):
 	# Sets the role id to @mention in the content part of the message.
 	match type:
 		case "discovered": 
-			content["content"] = content["content"].format(role_id, "Event Found!")
+			content["content"] = content["content"].format(role_id, load_config.config["event_found_text"])
 		case "n-days": 
-			content["content"] = content["content"].format(role_id, f"""Event in {load_config.config["amount_of_days_before_to_notify"]} days!""")
+			content["content"] = content["content"].format(role_id, load_config.config["n_days_text"].format(load_config.config["amount_of_days_before_to_notify"]))
 		case "today": 
-			content["content"] = content["content"].format(role_id, "Event Today!!!")
+			content["content"] = content["content"].format(role_id, load_config.config["today_text"])
 
 	content["content"] = content["content"].format(role_id)
 	# Sets the color of the embed.
