@@ -30,28 +30,29 @@ def month_to_num(month: str):
 			return 12
 
 
-def convert_to_24_hour_time(date: str):
-	split_date = date.split(":")
-	if "PM" in date:
-		return f"{str(int(split_date[0])+12)}:{split_date[1][:-2]}"
-	elif "AM" in date:
-		if int(split_date[0]) != 12:
-			return date[:-2]
-		return f"00:{split_date[1][:-2]}"
-	else:
-		raise ValueError("Invalid date input.")
-
-def convert_to_12_hour_time(date: str):
-	split_date = date.split(":")
-	hours = int(split_date[0])
-	if hours > 12:
-		return f"{hours - 12}:{split_date[1]} PM"
-	elif hours == 0: 
-		return f"12:{split_date[1]} AM"
-	elif hours > 0 and hours <= 12:
-		return f"{date} AM"
-	else: 
-		raise ValueError("Invalid date input.")
+def convert_to_24_hour(time_str):
+	print(time_str)
+    # Split the time string into hours, minutes, and AM/PM indicator
+	time_str = time_str[:-2] + " " + time_str[-2:]
+	print(time_str)
+	hours, minutes = time_str[:-2].split(':')
+	period = time_str[-2:]
+    
+    # Convert hours to integer
+	hours = int(hours)
+    
+    # If it's PM and not noon, add 12 hours to convert to 24-hour format
+	if period.upper() == 'PM' and hours != 12:
+		hours += 12
+    
+    # If it's AM and it's midnight (12 AM), convert hours to 00
+	if period.upper() == 'AM' and hours == 12:
+		hours = 0
+    
+    # Format the time in 24-hour format
+	time_24_hour = '{:02d}:{:02d}'.format(hours, int(minutes))
+    
+	return time_24_hour
 	
 
 
@@ -59,7 +60,7 @@ def convert_date(text: str):
 	split_text = text.split(" ")
 	split_text = split_text[1:-1]
 	del split_text[2]
-	split_text[2] = convert_to_24_hour_time(split_text[2])
+	split_text[2] = convert_to_24_hour(split_text[2])
 	split_text[0] = month_to_num(split_text[0])
 
 	# If a future event has a lesser month it has to be next year.

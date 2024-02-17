@@ -1,5 +1,6 @@
 from club_event import ClubEvent
 from discord import send_webhook
+import load_config
 class EventsList:
 	def __init__(self):
 		self.all_events = {}
@@ -30,9 +31,9 @@ class EventsList:
 		for date, event in self.all_events.items():
 			if not event.has_been_sent["discovered"]:
 				send_webhook(event, "discovered")
-			elif event.days_from_today() == 3 and not event.has_been_sent["n-days"]:
+			elif event.days_from_today() == load_config.config["amount_of_days_before_to_notify"] and not event.has_been_sent["n-days"]:
 				send_webhook(event, "n-days")
-			elif event.days_from_today() == 1 and not event.has_been_sent["today"]:
+			elif event.days_from_today() == 0 and not event.has_been_sent["today"]:
 				send_webhook(event, "today")
 			else:
 				print("Webhook already been sent, skipping...")

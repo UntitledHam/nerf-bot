@@ -1,4 +1,5 @@
 from date_functions import *
+import load_config
 
 def convert_text_to_list(text: str):
 	list_text = []
@@ -11,7 +12,7 @@ def convert_text_to_list(text: str):
 
 def generate_dictonary(data):
 	data = convert_text_to_list(data)
-	club_names_to_remove = ["Ithaca College Nerf Club", "Ithaca College Humans Vs Zombies Social Club", "Hosted by 2 organizations", "Open Mic Night"]
+	club_names_to_remove = load_config.config["club_names_to_remove"]
 	# Clean up the data to remove the ended text.
 	filter_func = lambda line: ("Ended" not in line or "ago" not in line) and line not in club_names_to_remove
 	filtered_data = list(filter(filter_func, data))
