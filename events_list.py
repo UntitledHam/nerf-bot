@@ -25,13 +25,17 @@ class EventsList:
 			print(f"""Name: {event.name}\nDate: {event.date_string}\nLocation: {event.location}\n\n""")
 
 
-	def send_messages():
-		for date, event in self.all_events:
-			if event.days_from_today == 3:
-				#send_webhook()
-				raise ValueError("Not implemented Yet")
-			elif event.days_from_today == 1:
-				raise ValueError("Not implemented Yet")
+
+	def send_webhooks(self):
+		for date, event in self.all_events.items():
+			if not event.has_been_sent["discovered"]:
+				send_webhook(event, "discovered")
+			elif event.days_from_today() == 3 and not event.has_been_sent["n-days"]:
+				send_webhook(event, "n-days")
+			elif event.days_from_today() == 1 and not event.has_been_sent["today"]:
+				send_webhook(event, "today")
+			else:
+				print("Webhook already been sent, skipping...")
 
 
 

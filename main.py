@@ -1,5 +1,6 @@
 import time
 import load_config
+import threading
 
 from requests_html import HTMLSession
 from events_utils import *
@@ -21,25 +22,27 @@ def make_request():
 
 def start_request_loop():
 	all_events = EventsList()
+	keep_looping = True
+	print("press ctrl-c to stop")
 	while True:
 		try:
 			events_json = make_request()
 			all_events.refresh_list(events_json)
+			all_events.print_events()
+			all_events.send_webhooks()
 		except ValueError:
 			print("Error Making Request.")
 
-		all_events.print_events()
-		print("Sleeping for 30 Seconds.\n\n")
-		time.sleep(30)
+		print("Sleeping...")
+		time.sleep(10)
 
 
 def main():
 	load_config.init()
-	#start_request_loop()
-	test_message = load_config.config["today_message"]
-	test_message["embeds"][0]["title"] = test_message["embeds"][0]["title"].format("Test")
-	test_message["embeds"][0]["description"] = test_message["embeds"][0]["description"].format("Nerf Event", "Your Mom's House", "14:30")
-	send_webhook(test_message)
+	start_request_loop()
 
 if __name__ == '__main__':
-   main()
+	try:
+		main()
+	except KeyboardInterrupt:
+		exit(0)
