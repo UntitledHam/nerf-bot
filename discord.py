@@ -19,7 +19,6 @@ def send_webhook(event: ClubEvent, type):
 
 	for url in urls:
 		result = requests.post(url, json=content)
-
 		try:
 			result.raise_for_status()
 		except requests.exceptions.HTTPError as err:

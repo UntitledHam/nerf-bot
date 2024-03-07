@@ -27,8 +27,11 @@ def start_request_loop():
 	all_events = EventsList()
 	while True:
 		try:
+			# Gets a list of events from IC engage. 
 			events_json = make_request()
+			# Refreshes the list with these new events. 
 			all_events.refresh_list(events_json)
+			# Prints out these events for debugging purposes. 
 			all_events.print_events()
 			all_events.send_webhooks()
 		
