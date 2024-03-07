@@ -1,0 +1,33 @@
+# A list of the urls of the webhooks to send to. Do not share with others. 
+webhook_urls = ["<Put webhook urls to send to here>"]
+# The url the events will be scraped from. Must end in "/events"
+url_to_scrape = "<Put IC Engage URL to scrape here>"
+
+# Role id to mention in the content field. 
+role_id = 12345678910
+# The username the bot will go by.
+username = "Nerf Bot"
+
+# Time to wait before each website refresh. 
+sleep_time = 30
+# How many days before the event should you get notified.
+amount_of_days_before_to_notify = 5
+
+# Names of the club that the program needs to know to remove. 
+club_names_to_remove = ["<Put Club names here>"]
+
+# Text displayed when an event is first found.
+event_found_text = "Event Found!"
+# Text displayed when an event is n days away.
+n_days_text = "Event in {} days!"
+# Text displayed when an event is today
+today_text = "Event Today!!!"
+
+# How the webhook is formatted. 
+[webhook_format]
+content = "<@&{}> {}"
+# How the embed is formatted.
+ [[webhook_format.embeds]]
+ title = "{}"
+ description = "> **Name:**  {}\n> **Location:**  {}\n> **Date/Time:**  {}\n"
+ color = "#FF0000"
